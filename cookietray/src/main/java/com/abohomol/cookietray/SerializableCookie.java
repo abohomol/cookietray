@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 import java.net.HttpCookie;
 
 /**
- * Wrapper for {@link HttpCookie} that enables cookies serialization.
+ * Wrapper for {@link HttpCookie} that enables its serialization.
  */
 class SerializableCookie implements Serializable {
 
@@ -58,7 +58,7 @@ class SerializableCookie implements Serializable {
 
     private boolean getHttpOnly() {
         try {
-            Field httpOnlyField = initHttpOnlyField();
+            Field httpOnlyField = getHttpOnlyField();
             return (boolean) httpOnlyField.get(cookie);
         } catch (Exception e) {
             Log.w(LOG_TAG, "Error in getHttpOnly");
@@ -68,14 +68,14 @@ class SerializableCookie implements Serializable {
 
     private void setHttpOnly(boolean httpOnly) {
         try {
-            Field httpOnlyField = initHttpOnlyField();
+            Field httpOnlyField = getHttpOnlyField();
             httpOnlyField.set(cookie, httpOnly);
         } catch (Exception e) {
             Log.w(LOG_TAG, "Error in setHttpOnly");
         }
     }
 
-    private Field initHttpOnlyField() throws NoSuchFieldException {
+    private Field getHttpOnlyField() throws NoSuchFieldException {
         Field fieldHttpOnly = cookie.getClass().getDeclaredField("httpOnly");
         fieldHttpOnly.setAccessible(true);
         return fieldHttpOnly;

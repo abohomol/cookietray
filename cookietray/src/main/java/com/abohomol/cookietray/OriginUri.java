@@ -26,8 +26,9 @@ class OriginUri {
                 domain = domain.substring(1);
             }
             try {
-                uri = new URI(uri.getScheme() == null ? "http" : uri.getScheme(), domain,
-                        cookie.getPath() == null ? "/" : cookie.getPath(), null);
+                String scheme = uri.getScheme() == null ? "http" : uri.getScheme();
+                String path = cookie.getPath() == null ? "/" : cookie.getPath();
+                uri = new URI(scheme, domain, path, null);
             } catch (URISyntaxException e) {
                 Log.w(LOG_TAG, "Error while getting cookie URI", e);
             }
