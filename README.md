@@ -3,6 +3,21 @@ Securely persist cookies in private storage on Android
 
 [![Build Status](https://travis-ci.org/abohomol/cookietray.svg?branch=master)](https://travis-ci.org/abohomol/cookietray) [![](https://jitpack.io/v/abohomol/cookietray.svg)](https://jitpack.io/#abohomol/cookietray) [![Apache 2.0 License](https://img.shields.io/hexpm/l/plug.svg) ](https://github.com/abohomol/cookietray/blob/master/LICENSE)
 
+## Usage
+
+Default usage:
+
+    CookieStore cookieStore = new CookieTray(context);
+    CookieHandler cookieHandler = new CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL);
+    builder.cookieJar(new JavaNetCookieJar(cookieHandler));
+    OkHttpClient httpClient = builder.build();
+
+Construct CookieTray using existing SharedPreferences instance:
+
+    SharedPreferences preferences = ...
+    CookieStore cookieStore = new CookieTray(preferences);
+    ...
+
 ## Download
 
 Step 1. Add the JitPack repository to your build file
